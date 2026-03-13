@@ -15,37 +15,83 @@ knitr::opts_chunk$set(
 
 # collaboratR
 
-### [MSU IBEEM](https://ibeem.msu.edu) commRULES project
+**A package to support collaborative meta-analysis for [MSU IBEEM](https://ibeem.msu.edu)**
+
+### Authors: 
+
+- Patrick S Bills
+- Ashwini Ramesh
+- Laís Petri
+- Phoebe Lehman Zarnetske, PI and Director, IBEEM
+
+### Contributors: 
+
+- Kelly Kapsar, Data Scientist, IBEEM
+- Alejandra Martinez Blancas 
+- Amar Deep Tiwari
 
 <!-- badges: start -->
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
-[![CRAN status](https://www.r-pkg.org/badges/version/collaboratR)](https://CRAN.R-project.org/package=collaboratR)
 <!-- badges: end -->
 
-*This is very early version under heavy development.*
+### Motivation
 
-This R package is part of 3 repositories that support the data entry, validation and accumulation of a meta-analysis for the commRULES project.  
+Performing a Meta-analysis requires collating and harmonizing data extracted 
+from many different sources but most frequently scientific publications.  
+Collaborative meta-analysis requires a group of scientists to collectively develop
+and agree on their goals, type of data extracted, format of the those data, and to 
+do so extremely consistently across papers.  This package helps to support that 
+efficiently by the easy-to-use Google Sheets for data definition and data entry.
+The workflow in this project can read directly from Google sheets into CSVs and
+validate the structure of a google sheet as well as the data using the Validate package. 
 
-1. commRULES data: version controlled data collection for tracking provenance using git, this is the L0 and L1  layers in the EDI framework
-2. collaboratR: commRULES data management code for L0 and L0->L1 layer in EDI framework
-3. commRULES-analysis: R code for reproducible data analysis , L1->L2 layers in EDI framework
+<!-- insert description of the EDI data transform framework here -->
+
+Originally, this This R package was part of 3 repositories that support the 
+data entry, validation and accumulation of a meta-analysis for a research project 
+sponsored by MSU IBEEM  
+
+
+1. collaboratR: data management code for L0 and L0->L1 layer in EDI framework
+1. data: version controlled data collection for tracking provenance using git, 
+   this is the L0 and L1  layers in the EDI framework. the collaboratR package
+   assists with data transfer and validation from Google drive into the data repository. 
+1. analysis: R code for reproducible data analysis , L1->L2 layers in EDI framework, 
+   using data in the data repository.  
 
 ## Installation - Package
 
-This package uses [renv](https://rstudio.github.io/renv/) to manage the packages you need to install, which creates an `renv.lock` file for you.  
-
-- install RENV: this can go into your R environment used for all packages, so fire up R with now project select and `install.packages('renv')`
 - clone this repository into a [new Rstudio project](https://docs.posit.co/ide/user/ide/guide/code/projects.html) and open it
-- inside the Rstudio project in the R console, `renv::restore()`
 
-## Google Drive Project Setup
+- install required packages: 
+  This package uses [renv](https://rstudio.github.io/renv/) to manage the packages you need to install, which creates an `renv.lock` file for you.     1. install the renv package: this can go into your R environment used for all packages.  
+  2. in R run `renv::restore()` or if that complains about R versions
 
-Using google drive via MSU seems to require creating a Google Cloud project, enabling the proper
-APIs and and assigning permissions
+*additional packages are required to build the package and this website, source the script*
+`R/install_dev_packages.R`
 
-Note that for safety, this package only reads from google drive and it never writes to google drive.  Therefore it only requests 'read-only' access.  
+### Installation/Testing
 
-Full documentation for how to set this up is forthcoming
+Google drive in this package is set to interaction.  To run any building, installing or checking in R, 
+you must first manually connect to google drive, which must be set-up properly first.  
+
+See the vignette in this package "Google Sheets API setup using Google Cloud", 
+or in this source code see [Google Sheets Vignette RMD](vignettes/google_sheets_api.Rmd)
+
+Once set-up you may have to log-in manually prior to running tests or checks, 
+use 
+
+```r
+source("R/gdrive.R")
+
+## Data Google Drive Project Setup
+
+See the Vignette ["Google Sheets API setup using Google Cloud"](vignettes/google_sheets_api.Rmd) 
+for details about setting up google sheets connection with R, which requires
+a google cloud project in your institution
+
+Note that for safety, this package only reads from google drive and it never
+writes to google drive.  Therefore it only requests 'read-only' access.
 
 ## Usage
 
